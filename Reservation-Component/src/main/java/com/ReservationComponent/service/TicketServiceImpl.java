@@ -1,5 +1,6 @@
 package com.ReservationComponent.service;
 
+import com.ReservationComponent.model.Passenger;
 import com.ReservationComponent.model.Ticket;
 import com.ReservationComponent.repository.TicketRepository;
 import com.ReservationComponent.utils.ReservationConstants;
@@ -31,10 +32,17 @@ public class TicketServiceImpl implements TicketService {
     public String cancelTicket(String pnrNum) {
         if(StringUtils.isNotBlank(pnrNum)){
             Ticket ticket = ticketRepository.findById(pnrNum).get();
-            if(Objects.nonNull(ticket) && !ticket.getStatus().equals(ReservationConstants.CANCEL)){
-                ticket.setStatus(ReservationConstants.CANCEL);
-                ticketRepository.save(ticket);
-                return "Ticket Cancelled Successfully";
+            if(Objects.nonNull(ticket))
+            {
+                if(!ticket.getStatus().equals(ReservationConstants.CANCEL)){
+                    ticket.setStatus(ReservationConstants.CANCEL);
+                    ticketRepository.save(ticket);
+                    return "Ticket Cancelled Successfully";
+                }
+                else{
+                    return "The Provided PNR Number is already CANCELLED";
+                }
+
             }
             else
             {
@@ -45,4 +53,6 @@ public class TicketServiceImpl implements TicketService {
             return "PNR Number is null Please provide a valid PNR Number";
         }
     }
+
+
 }

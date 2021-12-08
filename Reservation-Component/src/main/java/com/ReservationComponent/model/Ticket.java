@@ -11,25 +11,25 @@ import java.util.List;
 public class Ticket {
     @Id
     private String pnrNumber;
-    @Field
+
     private String trainNumber;
-    @Field
+
     private String trainName;
-    @Field
+
     private String source;
-    @Field
+
     private String destination;
-    @Field
+
     private String classType;
-    @Field
+
     private List<Passenger> passengerDetails;
-    @Field
+
     private BigDecimal fare;
-    @Field
+
     private String status;
-    @Field
+
     private String phoneNumber;
-    @Field
+
     private String email;
 
     public String getPnrNumber() {

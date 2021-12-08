@@ -71,7 +71,17 @@ public class UserController {
         HttpEntity<Ticket> entity = new HttpEntity<Ticket>(ticket,headers);
 
         return restTemplate.exchange(
-                "http://localhost:8081/addTicket", HttpMethod.POST, entity, Ticket.class).getBody();
+                "http://localhost:8081/reservation/addTicket", HttpMethod.POST, entity, Ticket.class).getBody();
+    }
+
+    @RequestMapping(value = "/cancelTicket/{pnrNum}")
+    public String cancelTicket(@PathVariable String pnrNum) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+        return restTemplate.exchange(
+                "http://localhost:8081/reservation/cancelTicket/"+pnrNum, HttpMethod.GET, entity, String.class).getBody();
     }
 
 }
