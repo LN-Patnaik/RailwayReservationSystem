@@ -2,7 +2,6 @@ package com.ReservationComponent.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -118,5 +117,22 @@ public class Ticket {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "pnrNumber='" + pnrNumber + '\'' +
+                ", trainNumber='" + trainNumber + '\'' +
+                ", trainName='" + trainName + '\'' +
+                ", source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", classType='" + classType + '\'' +
+                ", passengerDetails=" + passengerDetails +
+                ", fare=" + fare +
+                ", status='" + status + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

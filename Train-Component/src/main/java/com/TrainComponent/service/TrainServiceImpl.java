@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainServiceImpl implements  TrainService{
@@ -15,9 +16,11 @@ public class TrainServiceImpl implements  TrainService{
 
     @Override
     public Train getTrainByNo(String trainNo) {
-        Train train=trainRepository.findById(trainNo).get();
+        Train train =trainRepository.findById(trainNo).get();
         return train;
     }
+
+
 
     @Override
     public List<Train> getAllTrain() {
@@ -41,5 +44,18 @@ public class TrainServiceImpl implements  TrainService{
     public String deleteByTrainNo(String trainNo) {
         trainRepository.deleteById(trainNo);
         return "Deleted Successfully";
+    }
+
+    @Override
+    public Train getTrainByTrainName(String trainName) {
+        Train train = trainRepository.getTrainByTrainName(trainName);
+        return train;
+    }
+
+    @Override
+    public List<Train> getTrainBySourceAndDestination(String source, String destination) {
+        return getAllTrain().stream()
+                .filter(a -> (a.getSource().equals(source) && a.getDestination().equals(destination)))
+                .collect(Collectors.toList());
     }
 }

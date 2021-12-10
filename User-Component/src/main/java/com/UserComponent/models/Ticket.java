@@ -32,6 +32,8 @@ public class Ticket {
     @Field
     private String email;
 
+    public Ticket(){}
+
     public String getPnrNumber() {
         return pnrNumber;
     }
@@ -118,5 +120,22 @@ public class Ticket {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "pnrNumber='" + pnrNumber + '\'' +
+                ", trainNumber='" + trainNumber + '\'' +
+                ", trainName='" + trainName + '\'' +
+                ", source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", classType='" + classType + '\'' +
+                ", passengerDetails=" + passengerDetails +
+                ", fare=" + fare +
+                ", status='" + status + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

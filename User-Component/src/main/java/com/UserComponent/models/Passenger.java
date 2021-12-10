@@ -69,4 +69,17 @@ public class Passenger {
     public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "passengerId='" + passengerId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", sex='" + sex + '\'' +
+                ", coach='" + coach + '\'' +
+                ", seatNumber='" + seatNumber + '\'' +
+                '}';
+    }
 }
