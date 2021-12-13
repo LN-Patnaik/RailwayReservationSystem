@@ -1,6 +1,7 @@
 package com.ReservationComponent.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
@@ -8,8 +9,12 @@ import java.util.List;
 
 @Document
 public class Ticket {
+
+    @Transient
+    public static  final String SEQUENCE_NAME="pnr_sequence";
+
     @Id
-    private String pnrNumber;
+    private long pnrNumber;
 
     private String trainNumber;
 
@@ -31,11 +36,11 @@ public class Ticket {
 
     private String email;
 
-    public String getPnrNumber() {
+    public long getPnrNumber() {
         return pnrNumber;
     }
 
-    public void setPnrNumber(String pnrNumber) {
+    public void setPnrNumber(long pnrNumber) {
         this.pnrNumber = pnrNumber;
     }
 

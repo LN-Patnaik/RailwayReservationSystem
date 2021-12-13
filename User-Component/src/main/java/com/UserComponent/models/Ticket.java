@@ -1,44 +1,46 @@
 package com.UserComponent.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Document
 public class Ticket {
+
+    @Transient
+    public static  final String SEQUENCE_NAME="pnr_sequence";
+
     @Id
-    private String pnrNumber;
-    @Field
+    private long pnrNumber;
+
     private String trainNumber;
-    @Field
+
     private String trainName;
-    @Field
+
     private String source;
-    @Field
+
     private String destination;
-    @Field
+
     private String classType;
-    @Field
+
     private List<Passenger> passengerDetails;
-    @Field
+
     private BigDecimal fare;
-    @Field
+
     private String status;
-    @Field
+
     private String phoneNumber;
-    @Field
+
     private String email;
 
-    public Ticket(){}
-
-    public String getPnrNumber() {
+    public long getPnrNumber() {
         return pnrNumber;
     }
 
-    public void setPnrNumber(String pnrNumber) {
+    public void setPnrNumber(long pnrNumber) {
         this.pnrNumber = pnrNumber;
     }
 

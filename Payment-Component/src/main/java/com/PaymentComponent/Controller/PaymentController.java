@@ -12,4 +12,10 @@ public class PaymentController {
     {
         return "Hello World";
     }
+
+    @RequestMapping("/pay")
+    public String displayPayment()
+    {
+        return "Payment Successful";
+    }
 }

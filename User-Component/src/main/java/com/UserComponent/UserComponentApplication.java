@@ -2,6 +2,7 @@ package com.UserComponent;
 
 import com.UserComponent.models.User;
 import com.UserComponent.repository.UserRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
+@OpenAPIDefinition
 public class UserComponentApplication {
 
 

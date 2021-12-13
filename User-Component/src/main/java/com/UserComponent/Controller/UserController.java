@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String displayHelloWorld()
     {
         return "Hello World";
@@ -64,7 +64,7 @@ public class UserController {
     @Autowired
     RestTemplate restTemplate;
 
-    @RequestMapping(value = "/user/createTicket", method = RequestMethod.POST)
+    @PostMapping(value = "/user/createTicket")
     public Ticket createTicket(@RequestBody Ticket ticket) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -74,7 +74,7 @@ public class UserController {
                 "http://localhost:8081/reservation/addTicket", HttpMethod.POST, entity, Ticket.class).getBody();
     }
 
-    @RequestMapping(value = "/cancelTicket/{pnrNum}")
+    @GetMapping(value = "/cancelTicket/{pnrNum}")
     public String cancelTicket(@PathVariable String pnrNum) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
