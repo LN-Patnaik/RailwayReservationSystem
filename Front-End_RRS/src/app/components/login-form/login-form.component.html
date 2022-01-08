@@ -1,0 +1,29 @@
+  <form *ngIf="!isLoading" #loginForm="ngForm" (ngSubmit)="login()" class=" main row gy-2 gx-3 align-items-center">
+
+    <div class="col-12">
+        <label class="visually-hidden" for="autoSizingInput">Username</label>
+        <div class="input-group">
+          <div class="input-group-text">@</div>
+          <input type="text" class="form-control" id="autoSizingInput" name="username" [(ngModel)]="loginModel.username" placeholder="Username">
+        </div>
+      </div>
+      
+    <div class="col-12">
+      <label class="visually-hidden" for="autoSizingInput">Password</label>
+      <div class="input-group">
+        <div class="input-group-text">#</div>
+      <input type="password" class="form-control" id="autoSizingInput" [(ngModel)]="loginModel.password" name="Password" placeholder="Password">
+    </div>
+    </div>
+    <span *ngIf="errorMessage" class="text-danger mt-4">{{errorMessage}}</span>
+    <div class="">
+    <div class="col-12 submit">
+      <button type="submit" [disabled]="!(loginModel.username && loginModel.password)" class="btn btn-primary col-12">Submit</button>
+    </div>
+    </div>
+  </form>
+  <div *ngIf="isLoading" class="mt-auto d-flex flex-column align-items-center justify-content-center">
+    <div class="spinner-border m-5" role="status" aria-hidden="true"></div>
+    <strong>Logging in...</strong>
+  </div>
+  

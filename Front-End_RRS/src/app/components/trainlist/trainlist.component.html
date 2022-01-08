@@ -1,0 +1,44 @@
+<div *ngIf="!isLoading" class="container">
+    <div class="row">
+    <div class="col-12">
+      <div class="card" *ngIf="!trainList.length">
+        <div class="card-body text-center">
+          <span class="fs-4 text-center">Oops! No Trains Available Yet!</span>
+        </div>
+      </div>
+<table *ngIf="trainList.length" class="table table-hover table-dark traintable">
+    <thead>
+      <tr>
+        <th scope="col">Train Number</th>
+        <th scope="col">Train Name</th>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Seats Available</th>
+        <th scope="col">Fare</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let train of trainList">
+        <th scope="row">{{train.trainNo}}</th>
+        <td>{{train.trainName}}</td>
+        <td>{{train.source}}</td>
+        <td>{{train.destination}}</td>
+        <td>{{train.seats_Available}}</td>
+        <td>{{train.fare}}</td>
+        <td><button (click)="redirectToBookForm(train.trainNo)" class="btn btn-light btn-sm">Book</button></td>    
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  </div>
+  <div *ngIf="isLoading" class="mt-auto d-flex flex-column align-items-center justify-content-center">
+    <div class="spinner-border m-5" role="status" aria-hidden="true"></div>
+    <strong>Loading...</strong>
+  </div>
+
+
+
+
+

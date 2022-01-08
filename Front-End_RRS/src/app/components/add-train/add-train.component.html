@@ -1,0 +1,31 @@
+<span class="fs-4 text-success">{{successMesssge}}</span>
+<span class="fs-4 text-danger">{{failedMessage}}</span>
+<form class="main" (ngSubmit)="addTrain()"> 
+    <div class="form-group p-1" >
+      <label for="formGroupExampleInput"></label>
+      <input type="text" class="form-control" id="formGroupExampleInput" name="trainNo" [(ngModel)]="trainModel.trainNo" placeholder="Train Number">
+    </div>
+    <div class="form-group p-1">
+      <label for="formGroupExampleInput2"></label>
+      <input type="text" class="form-control" id="formGroupExampleInput2" name="trainName" [(ngModel)]="trainModel.trainName" placeholder="Train Name">
+    </div>
+    <div class="form-group p-1">
+        <label for="formGroupExampleInput"></label>
+        <input type="text" class="form-control" id="formGroupExampleInput" name="source" [(ngModel)]="trainModel.source" placeholder="Source">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput2"></label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" name="destination" [(ngModel)]="trainModel.destination" placeholder="Destination">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput"></label>
+        <input type="text" class="form-control" id="formGroupExampleInput" name="seats_Available" [(ngModel)]="trainModel.seats_Available" placeholder="Seats">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput2"></label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" name ="fare" [(ngModel)]="trainModel.fare" placeholder="Fare">
+      </div>
+      <div>
+      <button type="submit" class="btn btn-primary mx-1 my-3">Submit</button>
+      </div>
+  </form>

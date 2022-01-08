@@ -23,12 +23,14 @@ public class TrainController {
         return "Hello World";
     }
 
+
     @GetMapping("/trains/{trainNo}")
     @Operation(summary = "This is to search train by train no.")
     public Train getTrainByTrainNo(@PathVariable String trainNo) {
         Train getTrain = trainService.getTrainByNo(trainNo);
         return getTrain;
     }
+
 
     @GetMapping("/trains")
     @Operation(summary = "This is to show all trains")

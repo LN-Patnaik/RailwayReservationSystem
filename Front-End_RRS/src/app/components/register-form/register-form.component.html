@@ -1,0 +1,99 @@
+<form *ngIf="!isLoading" #registerForm="ngForm" (ngSubmit)="registerUser()" class="main row gy-2 gx-3 align-items-center">
+    <div class="col-12">
+        <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+        <div class="input-group">
+          <div class="input-group-text">@</div>
+          <input type="text" required minlength="4" class="form-control" id="" name="username"  [(ngModel)]="registerModel.username"  placeholder="Username" #name="ngModel">
+          <div ngClass="d-flex flex-wrap col-12" *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert">
+        <div *ngIf="name.errors?.['required']">
+         <p class="text-danger">Name is required.</p> 
+        </div>
+        <div *ngIf="name.errors?.['minlength']">
+         <p class="text-danger"> Name must be at least 4 characters long.</p>
+        </div>
+            </div> 
+        </div>
+      </div>  
+    <div class="col-12">
+      <label class="visually-hidden" for="autoSizingInput">Email</label>
+      <div class="input-group">
+        <div class="input-group-text">✉︎</div>
+        <input type="email" required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"  class="form-control" id="autoSizingInput" name="email" [(ngModel)]="registerModel.email" placeholder="Email" #email="ngModel">
+
+        <div ngClass="d-flex flex-wrap col-12" *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="alert">
+        <div *ngIf="email.errors?.['required']">
+         <p class="text-danger">Email is required.</p> 
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+         <p class="text-danger"> Please provide a valid Email</p>
+        </div>
+        </div> 
+      </div>
+    
+    </div>
+    <div class="col-12">
+        <label class="visually-hidden" for="autoSizingInput">phno</label>
+        <div class="input-group">
+          <div class="input-group-text">+91</div>
+          <input type="phone" required pattern="^[0-9]{10}$" class="form-control" id="autoSizingInput" name="phoneNumber" [(ngModel)]="registerModel.phoneNumber" placeholder="Phone Number" #phone="ngModel">
+          <div ngClass="d-flex flex-wrap col-12" *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+          class="alert">
+        <div *ngIf="phone.errors?.['required']">
+         <p class="text-danger">Phone number is required.</p> 
+        </div>
+        <div *ngIf="phone.errors?.['pattern']">
+         <p class="text-danger"> Please provide a valid Phone Number</p>
+        </div>
+        </div> 
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="visually-hidden" for="autoSizingInput">Password</label>
+        <div class="input-group">
+          <div class="input-group-text">#</div>
+          <input type="password" (keyup)="validateConfirmPassword()" required minlength="8" maxlength="16" pattern="" class="form-control col-12" id="autoSizingInput" name="password" [(ngModel)]="registerModel.password" placeholder="Password" #password="ngModel">
+          <div ngClass="d-flex flex-wrap col-12" *ngIf="phone.invalid && (password.dirty || password.touched)"
+          class="alert">
+        <div *ngIf="password.errors?.['required']">
+         <p class="text-danger">Password is required.</p> 
+        </div>
+        <div *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']">
+          <p class="text-danger"> Password must contain 8 to 16 characters</p>
+         </div>
+        </div>
+        </div>
+        
+      </div>
+      <div class="col-12">
+        <label class="visually-hidden" for="autoSizingInput">ConfirmPassword</label>
+        <div class="input-group">
+          <div class="input-group-text">#</div>
+          <input type="password" (keyup)="validateConfirmPassword()" required class="form-control" id="autoSizingInput" name="confirmPassword" [(ngModel)]="registerModel.confirmPassword" placeholder="Confirm Password" #cnf="ngModel">
+          <div ngClass="d-flex flex-wrap col-12" *ngIf="password.valid && (cnf.dirty || cnf.touched)" class="alert">
+        <div *ngIf="cnf.errors?.['required']">
+         <p class="text-danger">Confirm Password is required.</p> 
+        </div>
+        <div *ngIf="!isConfirm">
+          <p class="text-danger">Password doesn't match</p>
+         </div>
+        </div>
+      </div>
+      </div>
+    <div class="col-12">
+    <div class="col-12 submit">
+      <button type="submit" [disabled]="!(registerModel.username && registerModel.password && registerModel.phoneNumber && registerModel.email)" class="btn btn-primary col-12">Submit</button>
+    </div>
+    <span *ngIf="errorMessage" class="text-danger text-center">{{errorMessage}}</span>
+    </div>
+    <h5 class="text-success">{{successmsg}}</h5> 
+  </form>
+  <div *ngIf="isLoading" class="mt-auto d-flex flex-column align-items-center justify-content-center">
+    <div class="spinner-border m-5" role="status" aria-hidden="true"></div>
+    <strong>Signing Up...</strong>
+  </div>
+  
+
+  
+ 

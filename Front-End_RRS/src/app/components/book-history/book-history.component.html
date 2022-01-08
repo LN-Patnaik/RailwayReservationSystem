@@ -1,0 +1,29 @@
+
+<div class="container">
+  <h1 class="text-center p-4">Your Tickets</h1>
+  <div class="d-flex justify-content-center align-items-baseline">
+    
+    <div class="d-flex flex-wrap justify-content-center align-items-center mx-auto" *ngFor="let ticket of ticketList">
+      <div class="card text-center m-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title fs-6 text-primary">Pnr Number:{{ticket.pnrNumber}}</h5>
+            <p class="card-text">Train Number: {{ticket.trainNumber}}</p>
+            <p class="card-text">Train Name: {{ticket.trainName}}</p>
+            <p class="card-text">Source: {{ticket.source}}</p>
+            <p class="card-text">Destination: {{ticket.destination}}</p>
+            <div *ngFor="let passenger of ticket.passengerDetails">Passenger Deatils
+            <p class="card-text"> First name: {{passenger.firstName}}</p>
+            <p class="card-text"> Last name: {{passenger.lastName}}</p>
+            <p class="card-text"> Sex: {{passenger.sex}}</p>
+            <p class="card-text"> Age: {{passenger.age}}</p>
+          </div>
+          <p class="card-text"> Total Fare: {{ticket.fare}}</p>
+          <p class="card-text"> Status: {{ticket.status}}</p>
+            <button *ngIf="ticket.status=='CONFIRMED'" (click)="cancelTicket(ticket.pnrNumber)" class="btn btn-danger">Cancel Ticket</button>
+          </div>
+        </div>
+      </div>
+      
+      
+  </div>
+</div>

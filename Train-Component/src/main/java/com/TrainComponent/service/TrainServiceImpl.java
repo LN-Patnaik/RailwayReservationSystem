@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,13 +15,29 @@ public class TrainServiceImpl implements  TrainService{
     @Autowired
     TrainRepository trainRepository;
 
+
+    /**
+     * Get Train by train no.
+     *
+     * @param trainNo
+     * @return
+     */
+
     @Override
     public Train getTrainByNo(String trainNo) {
-        Train train =trainRepository.findById(trainNo).get();
-        return train;
+        Optional trainOpt = trainRepository.findById(trainNo);
+        if(trainOpt.isPresent()){
+            Train train = (Train) trainOpt.get();
+            return  train;
+        }
+        return null;
     }
 
-
+    /**
+     * Method to get all train
+     *
+     * @return
+     */
 
     @Override
     public List<Train> getAllTrain() {
@@ -46,11 +63,24 @@ public class TrainServiceImpl implements  TrainService{
         return "Deleted Successfully";
     }
 
+    /**
+     *
+     * @param trainName
+     * @return
+     */
     @Override
     public Train getTrainByTrainName(String trainName) {
         Train train = trainRepository.getTrainByTrainName(trainName);
         return train;
     }
+
+    /**
+     *
+     * @param source
+     * @param destination
+     * @return
+     */
+
 
     @Override
     public List<Train> getTrainBySourceAndDestination(String source, String destination) {

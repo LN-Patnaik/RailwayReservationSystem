@@ -1,0 +1,130 @@
+
+<div class="container col-md-8">
+  <div class="row">
+    <span class=" my-4 display-6 mx-auto text-center">Book Ticket</span>
+    <div *ngIf="!isLoading" class="accordion mt-2" id="accordionPanelsStayOpenExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            Select Class
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+          <div class="accordion-body">
+            <div class="container">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <form>
+                  <div class="col-auto">
+                    <select placeholder="Class Type" class="form-select" name="classType" [(ngModel)]="ticketModel.classType" id="autoSizingSelect">
+                      <option selected value="AC2">AC2</option>
+                      <option value="AC3">AC3</option>
+                      <option value="SL">SL</option>
+                    </select>
+                  </div>
+               </form>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Passenger Details
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
+            <div *ngFor="let passenger of passengers;let index=index">
+            <span class="fs-5">Passenger {{index+1}}</span>
+            <hr/>
+            <form   class="row gy-2 gx-3 align-items-center">
+              <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingInput">First Name</label>
+                <input type="text" class="form-control" id="autoSizingInput" placeholder="First Name" name="firstName{{index}}" [(ngModel)]="passenger.firstName" >
+              </div>
+              <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingInput">Last Name</label>
+                <input type="text" class="form-control" id="autoSizingInput" placeholder="Last Name" name="lastName{{index}}" [(ngModel)]="passenger.lastName" >
+              </div>
+              <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingInputGroup">Age</label>
+                <div class="input-group">
+                  <input type="number" min="5" max="99" class="form-control" id="autoSizingInputGroup" name="age{{index}}" placeholder="age" [(ngModel)]="passenger.age">
+                </div>
+              </div>
+              <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingSelect">Gender</label>
+                <select class="form-select" name="sex{{index}}" [(ngModel)]="passenger.sex" id="autoSizingSelect">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="O">Other</option>
+                </select>
+              </div>
+              <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingSelect">Berth Preference</label>
+                <select class="form-select" id="autoSizingSelect">
+                  <option value="Lower">Lower</option>
+                  <option value="Middle">Middle</option>
+                  <option value="Upper">Upper</option>
+                  <option value="Side Upper">Side Upper</option>
+                  <option value="Side Lower">Side Lower</option>
+                </select>
+              </div>
+              <div class="col-auto">
+                <button (click)="addPassenger()" type="button" class="btn btn-primary">Add Passenger</button>
+                <span *ngIf="index>0">
+                <button (click)="deletePassenger(index)" type="button" class="btn btn-primary mx-2">Delete</button>
+                </span>
+              </div>
+            </form>
+            <hr/>
+           </div>
+    
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            Contact Details
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+          <div class="accordion-body">
+            <div class="row g-3">
+             <form>
+              <div class="col p-2">
+                <input type="text" class="form-control" name="email" [(ngModel)]="ticketModel.email" placeholder="Email" aria-label="Email">
+              </div>
+              <div class="col p-2">
+                <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="ticketModel.phoneNumber" placeholder="Contact Number" aria-label="Contact Number">
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    
+    <div class="card" *ngIf="passengers[0].firstName && passengers[0].lastName && passengers[0].sex && passengers[0].age">
+      <div class="card-body">
+      <span class="fs-6 fw-bold">Total Fare </span><span class="fs-4 text-success fw-bolder" >Rs. {{totalFare}}</span>
+      </div>
+    </div>
+    <div class="">
+      <div class="col-12 submit">
+        <button type="button" (click)="bookingSubmit()" class="btn btn-primary col-12 mt-4 mb-4">Submit</button>
+      </div>
+      <span class="fs-6 text-success text-center mt-4 mx-auto">{{successMessage}}</span>
+      <span class="fs-6 text-danger text-center mt-4 mx-auto">{{errorMessage}}</span>
+      </div>
+  </div>
+</div>
+<div>
+  
+</div>
+<div *ngIf="isLoading" class="mt-auto d-flex flex-column align-items-center justify-content-center">
+  <div class="spinner-border m-5" role="status" aria-hidden="true"></div>
+  <strong>Logging in...</strong>
+</div>

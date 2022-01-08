@@ -1,0 +1,21 @@
+<form class="main" (ngSubmit)="deleteTrain()"> 
+    <div class="form-group p-1">
+      <label for="formGroupExampleInput"></label>
+      <div class="input-group">
+        <div class="input-group-text">Train Number</div>
+        <div *ngIf="trainNo">
+        <input type="text" [value]="trainNo" disabled class="form-control" id="formGroupExampleInput" placeholder="Train Number">
+        </div>
+        <div  *ngIf="!trainNo">
+          <input type="text" class="form-control" name="trainNo" [value]="trainNo" [(ngModel)]="trainNo" id="formGroupExampleInput" placeholder="Train Number">
+          </div>
+    </div>
+      
+    </div>
+      <div>
+      <button type="submit" class="btn btn-danger mx-1 my-3" >Delete Train</button>
+      </div>
+      <span class="fs-4 text-success">{{successMessage}}</span>
+  </form>
+
+

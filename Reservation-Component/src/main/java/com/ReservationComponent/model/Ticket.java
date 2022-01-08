@@ -14,7 +14,7 @@ public class Ticket {
     public static  final String SEQUENCE_NAME="pnr_sequence";
 
     @Id
-    private long pnrNumber;
+    private long pnrNumber; //Auto-Generated
 
     private String trainNumber;
 
@@ -35,6 +35,8 @@ public class Ticket {
     private String phoneNumber;
 
     private String email;
+
+    private String userId;
 
     public long getPnrNumber() {
         return pnrNumber;
@@ -124,10 +126,18 @@ public class Ticket {
         this.email = email;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
-                "pnrNumber='" + pnrNumber + '\'' +
+                "pnrNumber=" + pnrNumber +
                 ", trainNumber='" + trainNumber + '\'' +
                 ", trainName='" + trainName + '\'' +
                 ", source='" + source + '\'' +
@@ -138,6 +148,7 @@ public class Ticket {
                 ", status='" + status + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

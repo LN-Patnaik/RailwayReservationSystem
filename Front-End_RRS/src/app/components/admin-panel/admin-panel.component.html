@@ -1,0 +1,83 @@
+<div *ngIf="!isLoading" class="container">
+<div class="row mt-4">
+    <span class="fs-4">Features</span>
+    <hr class="mt-4"/>
+</div>
+<div class="row mt-4">
+<div class="col">
+   <div class="card col-3" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title fs-4">Add Trains</h5>
+      <p class="card-text">This functionality allows our admin to add train details</p>
+      <button class="btn btn-primary" href="#!" routerLink="/addTrain" routerLinkActive="active">Add</button>
+    </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title fs-4">Update Trains</h5>
+          <p class="card-text">This functionality allows our admin to update existing train details</p>
+          <button class="btn btn-secondary" href="#!" routerLink="/updateTrain" routerLinkActive="active">Update</button>
+        </div>
+      </div>
+  </div>
+ 
+  <div class="col">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title fs-4">Delete Train</h5>
+      <p class="card-text">This functionality allows our admin to delete existing train details</p>
+      <button class="btn btn-danger" href="#!" routerLink="/deleteTrain" routerLinkActive="active">Delete</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row">
+    <hr class="mt-4"/>
+
+    <div class="container">
+        <div class="row">
+        <div class="col-12">
+    <table class="table table-hover table-dark traintable">
+        <thead>
+          <tr>
+            <th scope="col">Train Number</th>
+            <th scope="col">Train Name</th>
+            <th scope="col">Source</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Seats Available</th>
+            <th scope="col">Fare</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let train of trainList">
+            <th scope="row">{{train.trainNo}}</th>
+            <td>{{train.trainName}}</td>
+            <td>{{train.source}}</td>
+            <td>{{train.destination}}</td>
+            <td>{{train.seats_Available}}</td>
+            <td>{{train.fare}}</td>
+            <td>
+                <button class="btn btn-light btn-sm" href="#!" routerLink="/updateTrain/{{train.trainNo}}" routerLinkActive="active">Update</button>
+            </td>
+            <td>
+                <button class="btn btn-outline-light btn-sm" href="#!" routerLink="/deleteTrain/{{train.trainNo}}" routerLinkActive="active">Delete</button>
+            </td>     
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
+      </div>    
+
+</div>
+</div>
+<div *ngIf="isLoading" class="mt-auto d-flex flex-column align-items-center justify-content-center">
+  <div class="spinner-border m-5" role="status" aria-hidden="true"></div>
+  <strong>Loading...</strong>
+</div>

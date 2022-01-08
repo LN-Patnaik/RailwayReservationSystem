@@ -1,7 +1,9 @@
 package com.ReservationComponent.service;
 
+import com.ReservationComponent.ReservationException;
 import com.ReservationComponent.model.Ticket;
 import com.ReservationComponent.model.Train;
+import com.ReservationComponent.model.Wallet;
 import com.ReservationComponent.repository.TicketRepository;
 import com.ReservationComponent.utils.ReservationConstants;
 import org.apache.commons.lang.StringUtils;
@@ -12,12 +14,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 
@@ -30,6 +35,9 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    WalletService walletService;
+
     private Logger logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     /**
@@ -38,11 +46,12 @@ public class TicketServiceImpl implements TicketService {
      * @param pnrNum
      * @return
      */
+
     @Override
-    public Ticket getTicketByPnrNum(String pnrNum) {
-        logger.trace(">> getTicketByPnrNum");
+    public Ticket getTicketByPnrNum(long pnrNum) {
+        logger.info(">> getTicketByPnrNum");
         Ticket ticket = ticketRepository.findById(pnrNum).get();
-        logger.trace("<< getTicketByPnrNum");
+        logger.info("<< getTicketByPnrNum");
         return ticket;
     }
 
@@ -53,7 +62,8 @@ public class TicketServiceImpl implements TicketService {
      * @return
      */
     @Override
-    public Ticket addTicket(Ticket ticket) {
+    @Transactional
+    public Ticket addTicket(Ticket ticket) throws ReservationException {
         logger.trace(">> addTicket()");
         Ticket addedTicket = null;
         Train train = getTrainByTrainNumber(ticket.getTrainNumber());
@@ -62,7 +72,19 @@ public class TicketServiceImpl implements TicketService {
             train.setSeats_Available(availableSeats);
             int totalFare= train.getFare()*ticket.getPassengerDetails().size();
             ticket.setFare(BigDecimal.valueOf(totalFare));
+            Wallet wallet = walletService.getWalletByUserId(ticket.getUserId());
+            if(Objects.nonNull(wallet)){
+                if(wallet.getBalance() < totalFare){
+                    throw new ReservationException("Wallet Balance is insufficient!! Please add and proceed");
+                }
+                else{
+                    int balance = wallet.getBalance() - totalFare;
+                    wallet.setBalance(balance);
+                    walletService.updateWallet(wallet);
+                }
+            }
             Train updatedTrain = updateTrainAvailableSeats(train);
+            ticket.setStatus("CONFIRMED");
             addedTicket = ticketRepository.save(ticket);
             logger.info("Updated train Details:-" + updatedTrain);
         }
@@ -75,14 +97,17 @@ public class TicketServiceImpl implements TicketService {
      *
      * @param train
      */
-    private Train updateTrainAvailableSeats(Train train) {
+    public Train updateTrainAvailableSeats(Train train) {
         logger.trace(">> updateTrainAvailableSeats()");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Train> entity = new HttpEntity<Train>(train, headers);
-        logger.trace("<< updateTrainAvailableSeats()");
-        return restTemplate.exchange(
-                "http://localhost:8080/train/updateTrain", HttpMethod.PUT, entity, Train.class).getBody();
+        if(Objects.nonNull(train)){
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<Train> entity = new HttpEntity<Train>(train, headers);
+            logger.trace("<< updateTrainAvailableSeats()");
+            return restTemplate.exchange(
+                    "http://localhost:8080/train/updateTrain", HttpMethod.PUT, entity, Train.class).getBody();
+        }
+        return null;
     }
 
     /**
@@ -91,7 +116,7 @@ public class TicketServiceImpl implements TicketService {
      * @param trainNumber
      * @return
      */
-    private Train getTrainByTrainNumber(String trainNumber) {
+    public Train getTrainByTrainNumber(String trainNumber) {
         logger.trace(">> getTrainByTrainNumber()");
         if (StringUtils.isNotBlank(trainNumber)) {
             HttpHeaders headers = new HttpHeaders();
@@ -114,16 +139,21 @@ public class TicketServiceImpl implements TicketService {
      * @return
      */
     @Override
+    @Transactional
     public String cancelTicket(String pnrNum) {
         logger.trace(">> cancelTicket()");
         if (StringUtils.isNotBlank(pnrNum)) {
-            Optional<Ticket> ticketOpt = ticketRepository.findById(pnrNum);
+            Optional<Ticket> ticketOpt = ticketRepository.findById(Long.valueOf(pnrNum));
             if (ticketOpt.isPresent()) {
                 Ticket ticket = ticketOpt.get();
                 if (Objects.nonNull(ticket)) {
                     if (!ticket.getStatus().equals(ReservationConstants.CANCEL)) {
                         ticket.setStatus(ReservationConstants.CANCEL);
                         ticketRepository.save(ticket);
+                        Wallet wallet = walletService.getWalletByUserId(ticket.getUserId());
+                        wallet.setBalance(wallet.getBalance() + ticket.getFare().intValue());
+                        walletService.updateWallet(wallet);
+
                         Train train = getTrainByTrainNumber(ticket.getTrainNumber());
                         if (Objects.nonNull(train)) {
                             int availableSeats = train.getSeats_Available() + ticket.getPassengerDetails().size();
@@ -154,6 +184,13 @@ public class TicketServiceImpl implements TicketService {
             logger.trace("<< cancelTicket()");
             return "PNR Number is null Please provide a valid PNR Number";
         }
+    }
+
+    @Override
+    public List<Ticket> getTicketByUserId(String userId) {
+        return ticketRepository.getTicketByUserId(userId);
+        //return ticketRepository.findAll().stream().filter((t->(t.getUserId().equals(userId))))
+        //        .collect(Collectors.toList());
     }
 
 }

@@ -1,0 +1,43 @@
+<form class="main" (ngSubmit)="updateTrain()"> 
+    <div class="form-group p-1">
+      <label for="formGroupExampleInput"></label>
+      <div class="input-group col-12">
+        <div class="input-group-text">Train Number</div>
+        <div  *ngIf="trainNo">
+        <input type="text" class="form-control" [value]="trainNo" disabled id="formGroupExampleInput" placeholder="Train Number">
+        </div>
+        <div  *ngIf="!trainNo">
+          <input type="text" class="form-control" name="trainNo" [value]="trainNo" [(ngModel)]="trainModel.trainNo" id="formGroupExampleInput" placeholder="Train Number">
+          </div>
+    </div>
+     
+    </div>
+    <div class="form-group p-1">
+      <label for="formGroupExampleInput2"></label>
+      <input type="text" class="form-control" [value]="trainModel.trainName" name="trainName" [(ngModel)]="trainModel.trainName" id="formGroupExampleInput2" placeholder="Train Name">
+    </div>
+    <div class="form-group p-1">
+        <label for="formGroupExampleInput"></label>
+        <input type="text" class="form-control" [value]="trainModel.source" name="source" [(ngModel)]="trainModel.source" id="formGroupExampleInput" placeholder="Source">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput2"></label>
+        <input type="text" class="form-control" [value]="trainModel.destination" name="destination" [(ngModel)]="trainModel.destination" id="formGroupExampleInput2" placeholder="Destination">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput"></label>
+        <input type="text" class="form-control" [value]="trainModel.seats_Available" name="seats_Available" [(ngModel)]="trainModel.seats_Available" id="formGroupExampleInput" placeholder="Seats">
+      </div>
+      <div class="form-group p-1">
+        <label for="formGroupExampleInput2"></label>
+        <input type="text" class="form-control" [value]="trainModel.fare" name="fare" [(ngModel)]="trainModel.fare" id="formGroupExampleInput2" placeholder="Fare">
+      </div>
+      <div>
+      <button type="submit" class="btn btn-dark mx-1 my-3 col-12">Update</button>
+      <span class="display-6 text-success">{{successMessage}}</span>
+      </div>
+  </form>
+  {{trainModel|json}}
+  {{trainDTO|json}}
+
+  

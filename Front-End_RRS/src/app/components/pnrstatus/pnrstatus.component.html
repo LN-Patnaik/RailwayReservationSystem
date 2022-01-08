@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+    <div class="col-4 align-items-center">
+    <div class="card text-center">
+        <div class="card-header">
+         <strong>Journey Details</strong>
+        </div>
+        <div class="card-body">
+             <form #pnrForm = "ngForm" method="get" (ngSubmit)="loadPNRStatus()">
+              <div class="col-auto mb-4">
+                <label class="visually-hidden" for="autoSizingInput"></label>
+                <div class="input-group">
+                  <div class="input-group-text">PNR</div>
+                  <input type="text" class="form-control" id="autoSizingInput" name="pnrNumber" placeholder="Enter PNR" [(ngModel)]="ticketModel.pnrNumber">
+                </div>
+              </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="card-footer  display-6" *ngIf="pnrStatus.status">
+         The ticket with the PNR Number {{pnrStatus.pnrNumber}} is <strong>{{pnrStatus.status}}</strong>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    

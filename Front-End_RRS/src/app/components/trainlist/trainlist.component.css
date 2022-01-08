@@ -1,0 +1,8 @@
+tbody, td, tfoot, th, thead, tr {
+    vertical-align: -webkit-baseline-middle;
+}
+
+.traintable{
+    margin-top: 64px;
+}
+

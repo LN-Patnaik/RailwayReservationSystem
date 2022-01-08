@@ -1,0 +1,15 @@
+<form class="main d-flex flex-wrap justify-content-center align-items-center" (ngSubmit)="addBalance()">
+    <div *ngIf="walletModel.balance"  class="card col-12">
+        <div class="card-body fw-bold fs-6 text-center"><span class="text-success fw-bold  display-2"><span class="fs-3">Rs. </span>{{walletModel.balance}}</span></div>
+        <p class="text-center fs-6 fw-bold"><span class="fw-bold  text-primary">Capegemini</span> Wallet</p>
+    </div> 
+    <div class="form-group p-1 col-12">
+      <label for="formGroupExampleInput2"></label>
+      <input type="text" class="form-control" #amountToAdd id="formGroupExampleInput2" name="balance" [(ngModel)]="walletDTO.balance" placeholder="Enter Amount">
+    </div>
+      <div class="col-4">
+      <button type="Add Balance" class="btn btn-primary mx-1 my-3">Add Balance</button>
+      </div>
+  </form>
+  
+  

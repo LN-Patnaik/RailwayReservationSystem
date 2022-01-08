@@ -1,0 +1,27 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: ZUUL-SECURITY
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+
+zuul:
+  routes:
+    train:
+      path: /train/**
+      url: http://localhost:8080/train
+    user:
+      path: /user/**
+      url: http://localhost:8082/user
+    reservation:
+      path: /reservation/**
+      url: http://localhost:8081/reservation
