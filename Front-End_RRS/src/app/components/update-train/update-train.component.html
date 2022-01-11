@@ -1,9 +1,16 @@
-<form class="main" (ngSubmit)="updateTrain()"> 
+<div class="container">
+
+<form class="main" (ngSubmit)="updateTrain()">
+  <div *ngIf="successMessage" class="card">
+    <div class="card-body">
+      <span class="fs-4 text-success">{{successMessage}}</span>
+    </div>
+  </div> 
     <div class="form-group p-1">
       <label for="formGroupExampleInput"></label>
       <div class="input-group col-12">
         <div class="input-group-text">Train Number</div>
-        <div  *ngIf="trainNo">
+        <div  *ngIf="trainNo" class="col-9">
         <input type="text" class="form-control" [value]="trainNo" disabled id="formGroupExampleInput" placeholder="Train Number">
         </div>
         <div  *ngIf="!trainNo">
@@ -34,10 +41,9 @@
       </div>
       <div>
       <button type="submit" class="btn btn-dark mx-1 my-3 col-12">Update</button>
-      <span class="display-6 text-success">{{successMessage}}</span>
+
       </div>
   </form>
-  {{trainModel|json}}
-  {{trainDTO|json}}
-
+  
+</div>
   

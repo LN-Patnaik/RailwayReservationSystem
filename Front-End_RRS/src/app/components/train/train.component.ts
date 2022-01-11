@@ -26,6 +26,7 @@ export class TrainComponent  implements OnInit{
 
   
   public trainModel:TrainModel = {};
+  trainDTO:TrainModel=new TrainModel();
 
   ngOnInit(): void {
     this.trainModel =new TrainModel();
@@ -38,7 +39,7 @@ export class TrainComponent  implements OnInit{
       .get('http://localhost:9000/train/train/'+this.trainModel.trainName)
       .subscribe((res:any)=>{
         console.log("response",res)
-        this.trainModel = res;
+        this.trainDTO = res;
       })
     }  
     

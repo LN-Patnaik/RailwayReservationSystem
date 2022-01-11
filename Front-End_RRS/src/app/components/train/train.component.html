@@ -14,19 +14,7 @@
                   <input type="text" class="form-control" id="autoSizingInput" name="trainName" [(ngModel)]="trainModel.trainName" placeholder="Train Name">
                 </div>
               </div>
-              <!-- <div class="d-flex flex-row justify-content-around">
-                <hr class="w-25"/>
-                <span class="my-2 fs-5"><em>or</em></span>
-                <hr class="w-25"/>
-              </div> -->
-             
-              <!-- <div class="col-auto mt-2 mb-4">
-                <label class="visually-hidden" for="autoSizingInput"></label>
-                <div class="input-group">
-                  
-                  <input type="text" class="form-control" id="autoSizingInput" name="trainNo" [(ngModel)]="trainModel.trainNo" placeholder="Train Number">
-                </div>
-              </div> -->
+            
               
              
               <div class="col-auto mb-4 mt-4 ">
@@ -40,27 +28,27 @@
           <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </div>
-         <div class="card-footer text-muted" *ngIf="trainModel.seats_Available">
+         <div class="card-footer text-muted" *ngIf="trainDTO.seats_Available">
           <div class="card">
-            <h3 class="card-header">{{trainModel.trainName}}</h3>
+            <h3 class="card-header">{{trainDTO.trainName}}</h3>
             <div class="card-body">
-              <h3 class="card-title">{{trainModel.source}}-{{trainModel.destination}}</h3>
+              <h3 class="card-title">{{trainDTO.source}}-{{trainDTO.destination}}</h3>
               <p class="card-text">
                 <button type="button" class="btn btn-primary">
                 AC2 <span class="badge badge-light"></span>
-                <span class="sr-only">{{trainModel.seats_Available}}</span>
+                <span class="sr-only">{{trainDTO.seats_Available}}</span>
               </button>
               <button type="button" class="btn btn-primary mx-2">
                 AC3 <span class="badge badge-light"></span>
-                <span class="sr-only">{{trainModel.seats_Available}}</span>
+                <span class="sr-only">{{trainDTO.seats_Available}}</span>
               </button>
                 <button type="button" class="btn btn-primary">
                 SL <span class="badge badge-light"></span>
-                <span class="sr-only">{{trainModel.seats_Available}}</span>
+                <span class="sr-only">{{trainDTO.seats_Available}}</span>
               </button>
               </p>
              
-              <button class="btn btn-primary" (click)="loadBookTickets(trainModel.trainNo)">Book Tickets</button>
+              <button class="btn btn-primary" (click)="loadBookTickets(trainDTO.trainNo)">Book Tickets</button>
             </div>
         </div>
         </div> 

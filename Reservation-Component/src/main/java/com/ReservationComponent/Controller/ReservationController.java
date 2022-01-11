@@ -32,13 +32,12 @@ public class ReservationController {
         return "Hello World";
     }
 
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/ticket/{pnrNum}")
-//    @Operation(summary = "This is to get ticket by pnr number")
-//    public Ticket getTicket(@PathVariable long pnrNum) {
-//        Ticket ticket = ticketService.getTicketByPnrNum(pnrNum);
-//        return ticket;
-//    }
+    @GetMapping("/ticket/{pnrNum}")
+    @Operation(summary = "This is to get ticket by pnr number")
+    public Ticket getTicket(@PathVariable long pnrNum) {
+        Ticket ticket = ticketService.getTicketByPnrNum(pnrNum);
+        return ticket;
+    }
 
 
     @PostMapping("/addTicket")

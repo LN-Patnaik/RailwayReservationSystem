@@ -13,6 +13,7 @@ import { TrainComponent } from './components/train/train.component';
 import { TrainlistComponent } from './components/trainlist/trainlist.component';
 import { UpdateTrainComponent } from './components/update-train/update-train.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { PrintTicketComponent } from './print-ticket/print-ticket.component';
 
 const routes: Routes = [
   {path:'login', component:LoginFormComponent},
@@ -31,7 +32,8 @@ const routes: Routes = [
   {path:'updateTrain',component:UpdateTrainComponent},
   {path:'deleteTrain',component:DeleteTrainComponent},
   {path:'bookHistory/:userId',component:BookHistoryComponent},
-  {path:'wallet/:userId',component:WalletComponent}
+  {path:'wallet/:userId',component:WalletComponent},
+  {path:'ticket/:pnr',component:PrintTicketComponent}
   
 ];
 

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class DeleteTrainComponent implements OnInit,DoCheck{
 
   successMessage="";
+  failedMessage="";
   trainNo:any="";
   constructor(private http: HttpClient,private router: Router,private route: ActivatedRoute, private authenticate:AuthenticationService) {
    
@@ -36,11 +37,18 @@ export class DeleteTrainComponent implements OnInit,DoCheck{
   {
     this.http.delete(environment.apiUrl+"/train/delete/"+this.trainNo).subscribe((res:any)=>
     {
-     if(res)
+      console.log(res.status)
+     if(res.status==="200")
      {
        console.log(res)
-       this.successMessage="Train with train no."+" "+this.trainNo+"deleted Successfully";
+     
      } 
+    },(error)=>{
+      if(error==="OK"){
+      this.successMessage="Train with train no."+" "+this.trainNo+"deleted Successfully";
+      }else{
+      this.failedMessage = "Deletion Failed!"
+      }
     })
   
   }

@@ -1,4 +1,10 @@
-<form class="main" (ngSubmit)="deleteTrain()"> 
+<form class="main" (ngSubmit)="deleteTrain()">
+  <div *ngIf="successMessage || failedMessage" class="card">
+    <div class="card-body">
+      <span class="fs-5 text-success">{{successMessage}}</span>
+<span class="fs-4 text-danger">{{failedMessage}}</span>
+    </div>
+  </div>
     <div class="form-group p-1">
       <label for="formGroupExampleInput"></label>
       <div class="input-group">
@@ -15,7 +21,6 @@
       <div>
       <button type="submit" class="btn btn-danger mx-1 my-3" >Delete Train</button>
       </div>
-      <span class="fs-4 text-success">{{successMessage}}</span>
   </form>
 
 

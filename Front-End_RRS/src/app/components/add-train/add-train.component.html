@@ -1,6 +1,13 @@
-<span class="fs-4 text-success">{{successMesssge}}</span>
+<div class="container">
+ 
+
+<form class="main"  (ngSubmit)="addTrain()"> 
+  <div *ngIf="successMesssge || failedMessage" class="card">
+    <div class="card-body">
+      <span class="fs-5 text-success">{{successMesssge}}</span>
 <span class="fs-4 text-danger">{{failedMessage}}</span>
-<form class="main" (ngSubmit)="addTrain()"> 
+    </div>
+  </div>
     <div class="form-group p-1" >
       <label for="formGroupExampleInput"></label>
       <input type="text" class="form-control" id="formGroupExampleInput" name="trainNo" [(ngModel)]="trainModel.trainNo" placeholder="Train Number">
@@ -29,3 +36,4 @@
       <button type="submit" class="btn btn-primary mx-1 my-3">Submit</button>
       </div>
   </form>
+</div>

@@ -28,6 +28,7 @@ export class BookingFormComponent implements OnInit {
   successMessage="";
   isLoading:boolean=false
   userId:any=""
+  ticketUrl:any=""
   constructor(private http: HttpClient,private router: Router,private route: ActivatedRoute,private authenticate:AuthenticationService) {
   
    }
@@ -80,12 +81,15 @@ export class BookingFormComponent implements OnInit {
       this.ticketDTO=res;
       this.successMessage="Ticket booked Successfully, You can view your ticket in the Book History Section"
       console.log(this.ticketDTO)
+      this.ticketUrl=this.ticketUrl+"/ticket/"+this.ticketDTO?.pnrNumber
     },error=>{
         this.isLoading=false
         console.log(error,"bookingfailed")
         this.errorMessage="Booking Failed"
     })
   }
+
+  
 
   addPassenger(){
     this.passengers.push(new PassengerModel())

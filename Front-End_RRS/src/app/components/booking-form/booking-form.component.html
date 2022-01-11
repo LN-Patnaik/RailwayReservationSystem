@@ -3,6 +3,15 @@
   <div class="row">
     <span class=" my-4 display-6 mx-auto text-center">Book Ticket</span>
     <div *ngIf="!isLoading" class="accordion mt-2" id="accordionPanelsStayOpenExample">
+      <div class="card">
+        <div class="card-body">
+          <span class="fs-6 text-success text-center mt-4 mx-auto">{{successMessage}}</span>
+          <div *ngIf="ticketUrl">
+            <a [href]="ticketUrl" class="btn btn-primary mx-1 my-3">Get Ticket</a>
+            </div>
+      <span class="fs-6 text-danger text-center mt-4 mx-auto">{{errorMessage}}</span>
+        </div>
+      </div>
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
@@ -94,10 +103,28 @@
             <div class="row g-3">
              <form>
               <div class="col p-2">
-                <input type="text" class="form-control" name="email" [(ngModel)]="ticketModel.email" placeholder="Email" aria-label="Email">
+                <input type="text" class="form-control" required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" name="email" [(ngModel)]="ticketModel.email" placeholder="Email" aria-label="Email" #email="ngModel">
+                <div ngClass="d-flex flex-wrap col-12" *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="alert">
+        <div *ngIf="email.errors?.['required']">
+         <p class="text-danger">Email is required.</p> 
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+         <p class="text-danger"> Please provide a valid Email</p>
+        </div>
+        </div>
               </div>
               <div class="col p-2">
-                <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="ticketModel.phoneNumber" placeholder="Contact Number" aria-label="Contact Number">
+                <input type="text" class="form-control" required pattern="^[0-9]{10}$" name="phoneNumber" [(ngModel)]="ticketModel.phoneNumber" placeholder="Contact Number" aria-label="Contact Number" #phone="ngModel">
+                <div ngClass="d-flex flex-wrap col-12" *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                class="alert">
+              <div *ngIf="phone.errors?.['required']">
+               <p class="text-danger">Phone number is required.</p> 
+              </div>
+              <div *ngIf="phone.errors?.['pattern']">
+               <p class="text-danger"> Please provide a valid Phone Number</p>
+              </div>
+              </div> 
               </div>
             </form>
             </div>
@@ -116,8 +143,6 @@
       <div class="col-12 submit">
         <button type="button" (click)="bookingSubmit()" class="btn btn-primary col-12 mt-4 mb-4">Submit</button>
       </div>
-      <span class="fs-6 text-success text-center mt-4 mx-auto">{{successMessage}}</span>
-      <span class="fs-6 text-danger text-center mt-4 mx-auto">{{errorMessage}}</span>
       </div>
   </div>
 </div>

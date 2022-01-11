@@ -54,6 +54,7 @@ export class BookHistoryComponent implements OnInit {
       this.successMsg="Ticket Successfully cancelled";
       
     })
+    window.location.reload()
   }
 
 }

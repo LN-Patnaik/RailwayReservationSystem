@@ -22,6 +22,7 @@ import { JwtInterceptor } from './util/jwt.interceptor';
 import { BookHistoryComponent } from './components/book-history/book-history.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { ErrorInterceptor } from './util/error.interceptor';
+import { PrintTicketComponent } from './print-ticket/print-ticket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { ErrorInterceptor } from './util/error.interceptor';
     UpdateTrainComponent,
     DeleteTrainComponent,
     BookHistoryComponent,
-    WalletComponent
+    WalletComponent,
+    PrintTicketComponent
   ],
   imports: [
     BrowserModule,
