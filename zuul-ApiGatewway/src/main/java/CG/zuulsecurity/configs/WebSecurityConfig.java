@@ -96,7 +96,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 
 
-//	            .antMatchers("/user/register").permitAll()
-//	            .antMatchers("/user/**").hasAuthority("USER")
-//	            .antMatchers("/train/**").hasAuthority("USER")
-//				.antMatchers("/reservation/**").hasAuthority("ADMIN")
